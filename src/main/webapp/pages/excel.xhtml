@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Excel"/> 
+    </ui:define>
+
+    <ui:define name="description">
+        export your data in excel or pdf
+    </ui:define>
+
+    <ui:define name="body">
+        <style>
+            .editable-field {
+                border: 2px solid #007bff;
+                border-radius: 4px; 
+                padding: 4px; 
+            }
+            
+            .row-incorrecto {
+                background-color: white !important;
+                color: red !important;
+            }
+        </style>
+
+        <h:form>
+            <p:growl>
+                <p:autoUpdate />
+            </p:growl>
+            <div class="card">
+                <div class="flex justify-content-between">
+                    <div>
+                    </div>
+                    <div>
+                        <p:commandButton value="XLS" styleClass="mr-2 mb-2" style="background: green; color: white">
+                            <p:dataExporter type="xlsxstream" target="products" fileName="products"
+                                            onRowExport="#{productBean.onRowExportXLS}"/>
+                        </p:commandButton>
+
+                        
+                    </div>
+                </div>
+                <p:dataTable id="products" var="product" value="#{productBean.products}"
+                             rowIndexVar="rowIndex"
+                             rowStyleClass="#{productBean.obtenerClaseFila(product)}"
+                             widgetVar="productTable">
+
+                    <f:facet name="header">
+                        <div class="flex justify-content-between align-items-center">
+                            List of Products
+
+                            <div>
+                                <p:commandButton id="toggler" type="button" value="Columns" icon="pi pi-align-justify"/>
+                                <p:columnToggler datasource="products" trigger="toggler">
+                                    <p:ajax event="toggle" listener="#{productBean.onToggle}"/>
+                                </p:columnToggler>
+                            </div>
+                        </div>
+                    </f:facet>
+
+                    <p:column headerText="Code">
+                        <f:facet name="header">
+                            <h:outputText value="Code" title="Code"/>
+                        </f:facet>
+                        <h:outputText value="#{product.productID}" />
+                    </p:column>
+
+                    <p:column headerText="Name">
+                        <h:outputText value="#{product.name}" />
+                    </p:column>
+
+                    <p:column headerText="Description">
+                        <h:outputText value="#{product.description}" />
+                    </p:column>
+
+
+                    <p:column headerText="Estado">
+                        <p:selectOneMenu value="#{productBean.estadoProducto[product]}"
+                                         styleClass="#{productBean.obtenerClaseFila(product)}" 
+                                         style="width: 100%">
+                            <f:selectItem itemLabel="Correcto" itemValue="Correcto"/>
+                            <f:selectItem itemLabel="Incorrecto" itemValue="Incorrecto"/>
+                            <p:ajax oncomplete="PF('productTable').filter()"
+                                    listener="#{productBean.actualizarEstado(product, productBean.estadoProducto[product])}" />
+                        </p:selectOneMenu>
+                    </p:column>
+                    <p:column headerText="Stock">
+                        <p:inputText value="#{productBean.stockValues[product.productID]}" 
+                                      styleClass="#{productBean.obtenerClaseFila(product)}"
+                                     style="width:100%; border-color: #007bff" 
+                                     label="Stock" />
+                    </p:column>
+                    <p:column headerText="Price">
+                        <h:outputText value="#{product.price}">
+                            <f:convertNumber type="currency" currencySymbol="$"/>
+                        </h:outputText>
+                    </p:column>
+                </p:dataTable>
+
+            </div>
+        </h:form>
+
+
+
+
+    </ui:define>
+</ui:composition>

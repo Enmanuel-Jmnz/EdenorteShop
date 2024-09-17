@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="My Cart"/> 
+    </ui:define>
+
+    <ui:define name="description">
+        Here's everything you want to buy
+    </ui:define>
+
+    <ui:define name="body">
+        <h:form id="cartForm">
+            <div class="card">
+                <p:dataTable value="#{cartBean.cartItems}" var="item" 
+                             styleClass="table"
+                             emptyMessage="Your cart is empty" 
+                             
+                             
+                             style="text-align: center;">
+                         
+                    <p:column headerText="Product Name">
+                        <h:outputText value="#{item.product.name}" />
+                    </p:column>
+
+                    <p:column headerText="Category">
+                        <h:outputText value="#{item.product.category}" />
+                    </p:column>
+
+                    <p:column headerText="Quantity">
+                        <h:outputText value="#{item.quantity}" />
+                    </p:column>
+
+                    <p:column headerText="Price">
+                        <h:outputText value="#{item.product.price}">
+                            <f:convertNumber currencySymbol="$" type="currency"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Subtotal">
+                        <h:outputText value="#{item.totalPrice}">
+                            <f:convertNumber currencySymbol="$" type="currency"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column>
+                        <p:commandButton value="Remove"
+                                         
+                                         action="#{cartBean.removeFromCart(item)}" 
+                                         update=":cartForm"
+                                         styleClass="ui-button-danger" 
+                                         style="background: red; color: white; padding: .5rem 1rem; margin-bottom: .5rem; border-radius: 1rem" />
+                    </p:column>
+                </p:dataTable>
+
+                <div style="margin: 2rem; text-align: left;">
+                    <h:outputText value="Total of your buy: " style="font-size: 1.5rem; font-weight: bold; margin-right: 1rem;" />
+                    <h:outputText value="#{cartBean.total}" style="font-size: 1.5rem; font-weight: bold;" />
+                </div>
+
+                <div style="margin: 1rem; display: flex; justify-content: flex-end;">
+                    <p:commandButton value="Buy" 
+                                     action="#{saleBean.makeSale}" 
+                                     process="@form" 
+                                     update="@form" 
+                                     icon="fa fa-money"
+                                     iconPos="right"
+                                     styleClass="ui-button-success" 
+                                     style="margin-right: 1rem; margin-bottom: 2rem; background: #0096ff; color: white; padding: .5rem 1rem;" />
+                    
+                    <p:commandButton value="Cancel Buy"
+                                     action="#{cartBean.clearCart}"
+                                     update="@form"
+                                     styleClass="ui-button-outlined"
+                                     style="background: red; color: white; padding: 0.5rem 1rem; margin-bottom: 2rem;" />
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

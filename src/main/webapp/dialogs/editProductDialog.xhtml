@@ -1,0 +1,79 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+         <p:dialog id="editProductDialog" header="Edit Product" widgetVar="editProductDialog" modal="true" closable="false" resizable="false">
+    <h:form id="editProductForm">
+                <div class="ui-g ui-fluid" style="color: black !important; width: 40em">
+                    <!-- Columna 1 -->
+                    <div class="ui-sm-12 ui-g-6 ui-g-nopad">
+                        <div class="ui-sm-12 ui-g-11" style="color: black !important;">
+                            <p:outputLabel for="name" value="Product Name:" styleClass="ui-outputlabel" style="color: black !important; font-weight: bold !important;"/>
+                        </div>
+                        <div class="ui-sm-12 ui-g-11">
+                            <p:inputText id="name" value="#{productBean.selectedProduct.name}" required="true" label="Product Name" 
+                                         styleClass="form-control" style="color: black !important;" />
+                        </div>
+                    </div>
+                    <div class="ui-sm-12 ui-g-6 ui-g-nopad">
+                        <div class="ui-sm-12 ui-g-11">
+                            <p:outputLabel for="category" value="Category:" styleClass="ui-outputlabel" style="color: black !important; font-weight: bold !important;"/>
+                        </div>
+                        <div class="ui-sm-12 ui-g-11">
+                            <p:inputText id="category" value="#{productBean.selectedProduct.category}" required="true" label="Category"
+                                         styleClass="form-control" style="color: black !important;"/>
+                        </div>
+                    </div>
+                    <div class="ui-sm-12 ui-g-12 ui-g-nopad">
+                        <div class="ui-sm-12 ui-g-11">
+                            <p:outputLabel for="description" value="Description:" styleClass="ui-outputlabel" style="color: black !important; font-weight: bold !important;"/>
+                        </div>
+                        <div class="ui-sm-12 ui-g-11">
+                            <p:inputTextarea id="description" value="#{productBean.selectedProduct.description}" required="true" label="Description"
+                                             styleClass="form-control" style="color: black !important;"/>
+                        </div>
+                    </div>
+                    <div class="ui-sm-12 ui-g-6 ui-g-nopad">
+                        <div class="ui-sm-12 ui-g-11">
+                            <p:outputLabel for="stock" value="Stock:" styleClass="ui-outputlabel" style="color: black !important; font-weight: bold !important;"/>
+                        </div>
+                        <div class="ui-sm-12 ui-g-11">
+                            <p:inputText id="stock" value="#{productBean.selectedProduct.stock}" required="true" label="Stock"
+                                         styleClass="form-control" style="color: black !important;"/>
+                        </div>
+                    </div>
+                    <div class="ui-sm-12 ui-g-6 ui-g-nopad">
+                        <div class="ui-sm-12 ui-g-11">
+                            <p:outputLabel for="price" value="Price:" styleClass="ui-outputlabel" style="color: black !important; font-weight: bold !important;"/>
+                        </div>
+                        <div class="ui-sm-12 ui-g-11">
+                            <p:inputText id="price" value="#{productBean.selectedProduct.price}" required="true" label="Price"
+                                         styleClass="form-control" style="color: black !important;"/>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: right !important; padding: 10px;">
+                    <p:commandButton value="Save" 
+                                     action="#{productBean.updateProduct}" 
+                                     process="@form" 
+                                     update=":form:dt-products :form:messages" 
+
+                                     styleClass="btn btn-primary" 
+                                     oncomplete="PF('editProductDialog').hide();" 
+                                     style="margin-right: 1rem"/>
+
+                    <p:commandButton value="Cancel" 
+                                     onclick="PF('editProductDialog').hide()" 
+                                     type="button"
+                                     styleClass="btn btn-danger" />
+                </div>
+                <f:facet name="footer">
+                </f:facet>
+            </h:form>
+        </p:dialog>           
+    
+</ui:composition>
+        
+    

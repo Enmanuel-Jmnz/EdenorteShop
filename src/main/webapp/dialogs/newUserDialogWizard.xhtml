@@ -1,0 +1,116 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <p:dialog header="New User" widgetVar="newUserDialogWizard" modal="true" id="newUserDialogWizard" resizable="false" closable="true"
+              styleClass="box-primary card" style="border-radius: 8px !important; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important; padding: 15px !important;">
+        <style>
+            
+            .label {
+                width: 30%; /* Ancho consistente para las etiquetas */
+                padding-right: 2rem;
+                color: black !important;
+                font-size: 1.4rem;
+                display: flex;
+                align-items: center; /* Alinea verticalmente el contenido */
+            }
+
+            .value {
+                width: 70%; /* Ancho consistente para los campos de entrada */
+                padding: 4px;
+                display: flex;
+                align-items: center;
+            }
+
+            .ui-panelgrid .ui-grid-row {
+                display: flex; 
+                align-items: center; 
+                margin-bottom: 2rem; 
+            }
+
+            .ui-panelgrid .ui-grid-col-12 {
+                flex: 1; /* Para asegurarse de que las columnas ocupen todo el ancho */
+            }
+
+            .outputLabel {
+                font-weight: bold;
+            }
+
+            .error {
+                color: red;
+            }
+            
+        </style>
+
+
+        <div class="card">
+            <h:form id="form">
+
+                <p:growl id="growl" sticky="true" showDetail="true"/>
+
+                <p:wizard flowListener="#{userWizard.onFlowProcess}">
+                    <p:tab id="personal" title="Personal">
+                        <p:panel header="Personal Details">
+                            <p:messages/>
+                            <p:panelGrid columns="2" columnClasses="label,value" style="width: 100%; margin-bottom: 20px;">
+                                <h:outputText value="Name: *" styleClass="label"/>
+                                <p:inputText value="#{userWizard.user.name}" required="true" label="Name" styleClass="value"/>
+
+                                <h:outputText value="DNI: *" styleClass="label"/>
+                                <p:inputText value="#{userWizard.user.dni}" required="true" label="DNI" styleClass="value"/>
+
+                                <h:outputText value="Skip to last:" styleClass="label"/>
+                                <h:selectBooleanCheckbox value="#{userWizard.skip}" styleClass="value"/>
+                            </p:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+
+
+                    <p:tab id="contact" title="Access">
+                        <p:panel header="Access Information">
+                            <p:messages/>
+                            <p:panelGrid columns="2" columnClasses="label,value" style="width: 100%; margin-bottom: 20px;">
+                                <h:outputText value="Email: *"/>
+                                <p:inputText value="#{userWizard.user.email}" required="true" label="Email"/>
+
+                                <h:outputText value="Password: *"/>
+                                <p:password  value="#{userWizard.user.password}" required="true" label="Password"/>
+
+                                <h:outputText value="Category: *"/>
+                                <p:inputText value="#{userWizard.user.category}" required="true" label="Category"/>
+                            </p:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab id="confirm" title="Confirmation">
+                        <p:panel header="Confirmation">
+                            <p:panelGrid columns="4" style="width: 100%;" columnClasses="label,value,label,value">
+                                <h:outputText value="Name:" styleClass="label"/>
+                                <h:outputText value="#{userWizard.user.name}" styleClass="outputLabel"/>
+
+                                <h:outputText value="DNI:" styleClass="label"/>
+                                <h:outputText value="#{userWizard.user.dni}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Category:" styleClass="label"/>
+                                <h:outputText value="#{userWizard.user.category}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Email:" styleClass="label"/>
+                                <h:outputText value="#{userWizard.user.email}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Password:" styleClass="label"/>
+                                <h:outputText value="#{userWizard.user.password}" styleClass="outputLabel"/>
+                            </p:panelGrid>
+
+                            <p:commandButton value="Submit" action="#{userWizard.save}" update="growl" process="@this" style="background: #0096ff; color: white; margin-left: 25rem"/>
+                        </p:panel>
+                    </p:tab>
+
+                </p:wizard>
+
+            </h:form>
+        </div>
+    </p:dialog>
+</ui:composition>
+

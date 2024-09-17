@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Contact"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
+    </ui:define>
+
+    <ui:define name="description">
+        Contact form for questions or problems
+    </ui:define>
+
+    <ui:define name="body">
+         <h:form id="contactForm" class="ui-fluid">
+        <p:panel header="Formulario de Contacto" styleClass="contact-panel" >
+            <p:messages id="messages"  closable="true"/>
+
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-6">
+                    <p:outputLabel for="name" value="Nombre:" />
+                    <p:inputText id="name" value="#{contactBean.name}" required="true" 
+                                 label="Nombre" styleClass="form-control" />
+                </div>
+                <div class="ui-g-12 ui-md-6">
+                    <p:outputLabel for="email" value="Correo Electrónico:" />
+                    <p:inputText id="email" value="#{contactBean.email}" required="true" 
+                                 label="Correo Electrónico" styleClass="form-control" />
+                </div>
+                <div class="ui-g-12">
+                    <p:outputLabel for="subject" value="Asunto:" />
+                    <p:inputText id="subject" value="#{contactBean.subject}" required="true" 
+                                 label="Asunto" styleClass="form-control" />
+                </div>
+                <div class="ui-g-12">
+                    <p:outputLabel for="message" value="Mensaje:" />
+                    <p:inputTextarea id="message" value="#{contactBean.message}" rows="6" 
+                                     required="true" label="Mensaje" styleClass="form-control" />
+                </div>
+                <div class="ui-g-12">
+                    <p:commandButton value="Enviar" action="#{contactBean.sendMessage}" 
+                                     update="messages" styleClass="btn btn-primary" icon="pi pi-envelope" style="font-size: 1.5rem"/>
+                </div>
+            </div>
+        </p:panel>
+    </h:form>
+    </ui:define>
+</ui:composition>

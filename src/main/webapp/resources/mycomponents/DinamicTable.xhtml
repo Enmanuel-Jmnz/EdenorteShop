@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:cc="jakarta.faces.composite"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<cc:interface>
+    <cc:attribute name="id" required="true" />
+    <cc:attribute name="value" required="true" />
+    <cc:attribute name="headers" required="true" type="java.util.List" />
+    <cc:attribute name="paginator" default="true" />
+    <cc:attribute name="rows" default="2" />
+    <cc:attribute name="paginatorPosition" default="top" />
+</cc:interface>
+
+<cc:implementation>
+<p:dataTable id="#{cc.attrs.id}"
+             var="item"
+             value="#{cc.attrs.value}"
+             paginatorPosition="#{cc.attrs.paginatorPosition}"
+             paginator="#{cc.attrs.paginator}" 
+             rows="#{cc.attrs.rows}"
+             paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+             rowsPerPageTemplate="2,4,6"
+             lazy="true">
+
+    <c:forEach var="header" items="#{cc.attrs.headers}">
+        <p:column headerText="#{header.label}"
+                  sortBy="#{item[header.property]}"
+                  filterBy="#{item[header.property]}">
+            <h:outputText value="#{item[header.property]}" />
+        </p:column>
+    </c:forEach>
+
+</p:dataTable>
+
+
+</cc:implementation>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="jakarta.tags.core">
+
+<cc:interface>
+    <!-- Atributo requerido para el valor del DataTable -->
+    <cc:attribute name="value" required="true" /> <!-- Lista de objetos -->
+</cc:interface>
+
+<cc:implementation>
+    <p:dataTable value="#{cc.attrs.value}" var="item" paginator="true" rows="10" id="dynamicDataTable">
+        <!-- Verifica si la lista tiene elementos -->
+        <c:if test="#{not empty item}">
+            <!-- Usar ReflectionHelper para obtener los nombres de los campos -->
+            <ui:repeat value="#{reflectionHelper.getFieldNames(item)}" var="field">
+                <p:column headerText="#{field}">
+                    <!-- Usar ReflectionHelper para obtener el valor del campo -->
+                    <h:outputText value="#{reflectionHelper.getFieldValue(item, field)}" />
+                </p:column>
+            </ui:repeat>
+        </c:if>
+    </p:dataTable>
+</cc:implementation>
+
+</html>

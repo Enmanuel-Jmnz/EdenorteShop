@@ -1,0 +1,30 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+                    
+     <p:dialog id="deleteProductDialog" header="Delete Product" widgetVar="deleteProductDialog" modal="true" closable="false" resizable="false">
+    
+
+            <h:outputText value="Are you sure you want to delete this product?" />
+            <f:facet name="footer" >
+                
+                <p:commandButton value="Yes" 
+                                 icon="pi pi-check" 
+                                 action="#{productBean.deleteProduct}"
+                                 process="@this" 
+                                 style="background: #0096ff; color: white;"
+
+                                 update=":form:dt-products :form:messages" 
+                                 oncomplete="PF('deleteProductDialog').hide()" />
+                    <p:commandButton value="No" 
+                                     type="button" 
+                                     styleClass="ui-button-secondary" 
+                                     icon="pi pi-times"
+                                     onclick="PF('deleteProductDialog').hide()" />
+            </f:facet>
+        </p:dialog>
+</ui:composition>
+   

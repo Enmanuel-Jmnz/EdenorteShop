@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Store"/>
+    </ui:define>
+
+    <ui:define name="description">
+        Here's everything you need
+    </ui:define>
+
+    <ui:define name="body">
+        <style>
+            .product-grid-item {
+                padding: 1rem !important;
+                margin: 1rem !important;
+                border: 1px solid #ddd !important;
+                border-radius: 8px !important;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
+                height: 250px !important;
+                width: 200px !important;
+                text-align: center !important;
+            }
+            .product-name {
+                font-size: 1.8rem !important;
+                font-weight: bold !important;
+                margin-bottom: 0.5rem !important;
+            }
+            .product-category {
+                font-size: 1.5rem !important;
+                color: #888 !important;
+                margin-bottom: 0.5rem !important;
+            }
+            .product-price {
+                font-size: 2rem !important;
+                color: green !important;
+                font-weight: bold !important;
+                margin-bottom: 0.5rem !important;
+            }
+            .product-description {
+                font-size: 1.3rem !important;
+                color: #555 !important;
+                margin-bottom: 0.5rem !important;
+            }
+            .product-grid-item-bottom {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                margin-top: auto !important;
+            }
+            .product-list-item {
+                padding: 1rem !important;
+                margin: 1rem !important;
+                border: 1px solid #ddd !important;
+                border-radius: 8px !important;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important;
+            }
+            .product-list-detail {
+                flex-grow: 1 !important;
+                margin-right: 1rem !important;
+            }
+            .product-list-action {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: flex-end !important;
+            }
+            .header-content {
+                display: flex !important;
+                justify-content: flex-start !important;
+                margin-bottom: 1rem !important;
+                margin-left: 1rem !important;
+            }
+            .custom-spinner .ui-spinner-input {
+                text-align: center; /* Centra el texto dentro del input */
+                width: 100%; /* Asegura que el input ocupe todo el espacio disponible */
+                font-size: 1.2rem; /* Ajusta el tamaño del texto si es necesario */
+            }
+        </style>
+
+        <div class="card product">
+            <h:form id="form">
+                <p:dataView var="product" value="#{productBean.products}" 
+                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            gridIcon="pi pi-th-large" listIcon="pi pi-bars">
+
+                    <p:dataViewListItem>
+                        <div class="product-list-item">
+                            <div class="product-list-detail">
+                                <div class="product-name">#{product.name}</div>
+                                <p style="font-size: 1.6rem; font-weight: bold">Description:</p>
+                                <div class="product-description">#{product.description}</div>
+                                <div class="product-category">Category: #{product.category}</div>
+                                <div class="product-description">Stock: #{product.stock}</div>
+                            </div>
+                            <div class="product-list-action">
+                                <h:outputText value="#{product.price}" styleClass="product-price">
+                                    <f:convertNumber currencySymbol="$" type="currency"/>
+                                </h:outputText>
+                                <div class="field col-12 md:col-4" style="width: 80px; margin-bottom: 1rem; text-align: center">
+                                    <p:outputLabel for="spinner" />
+
+                                    <p:spinner id="spinner" value="#{productBean.spinnerValue}" min="1" max="100" styleClass="custom-spinner">
+                                        <p:ajax event="change" listener="#{productBean.updateSpinnerValue}" update="@this"/>
+                                    </p:spinner>
+                                </div>
+                                <p:commandButton value="Add To Cart"
+                                                 action="#{productBean.addToCart(product, productBean.spinnerValue)}"
+                                                 process="@this"
+                                                 update="@form"
+                                                 styleClass="ui-button-outlined"
+                                                 style="background-color: #0096ff; color: white; padding: 10px; display: flex; align-items: center; justify-content: center; border: none; text-align: center;">
+                                </p:commandButton>                            </div>
+                        </div>
+                    </p:dataViewListItem>
+                </p:dataView>
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>

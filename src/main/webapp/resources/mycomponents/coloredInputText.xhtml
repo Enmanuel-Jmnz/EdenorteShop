@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+<cc:interface>
+    <!-- Atributo requerido para el valor del input -->
+    <cc:attribute name="value" required="true" />
+    <!-- Atributo opcional para el color del borde -->
+    <cc:attribute name="borderColor" default="black" />
+</cc:interface>
+
+<cc:implementation>
+    <p:inputText value="#{cc.attrs.value}"
+                 style="border: 2px solid #{cc.attrs.borderColor};" />
+</cc:implementation>
+
+</html>

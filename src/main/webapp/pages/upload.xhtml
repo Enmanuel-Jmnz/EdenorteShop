@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Upload file"/> 
+    </ui:define>
+
+    <ui:define name="description">
+        import and export your data in excel or pdf
+    </ui:define>
+
+    <ui:define name="body">
+        <h:form id="frmSingle" style="margin: 1rem">
+            <!-- Carga de archivo -->
+            <p:fileUpload id="upload" value="#{fileUploadView.file}"
+                          label="Importar"
+                          chooseIcon="fa fa-upload"
+                          mode="simple" auto="true"
+                          process="@this" update="messages, dataTableForm, downloadButton"
+                          listener="#{fileUploadView.handleFileUpload}"
+                          skinSimple="true" />
+
+            <!-- Botón de descarga -->
+            <p:commandButton id="downloadButton" value="Descargar Archivo" action="#{fileUploadView.downloadFile}" 
+                             style="background: #007bff; color: white; margin-top: 1rem" ajax="false"
+                             />
+        </h:form>
+
+
+         <!-- Mostrar datos cargados en una tabla -->
+        <h:form id="dataTableForm" style="margin: 1rem">
+            <p:dataTable id="dataTable" value="#{fileUploadView.excelData}" var="row" 
+                         paginator="true" rows="10" style="width:100%" >
+
+                <!-- Definir columnas dinámicamente -->
+                <p:columns value="#{fileUploadView.columnHeaders}" var="header" columnIndexVar="colIndex" headerText="#{header}">
+                    <h:outputText value="#{row.columns[colIndex]}" />
+                </p:columns>
+            </p:dataTable>
+            
+            
+        </h:form>
+    </ui:define>
+</ui:composition>

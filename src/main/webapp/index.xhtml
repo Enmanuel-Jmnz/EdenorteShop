@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="#{layoutMB.template}">
+
+    <ui:param name="renderBreadCrumb" value="false"/>
+
+    <ui:define name="title">
+        <link rel="stylesheet" href="resources/css/starter.css"/>
+        <h2 class="align-center">
+            Welcome to the <span class="text-aqua"> <i><a href="#"
+                                                          target="_blank"
+                                                          style="text-transform: none;text-decoration: none; "> Edenorte Shop</a></i></span> Project!
+
+        </h2>
+    </ui:define>
+    <ui:define name="body">
+    <section id="sobre-nosotros" class="highlight-section-about"> 
+            
+            <div class="container-about">
+                <div class="text-content-about">
+            <h2>Sobre Nosotros</h2>
+                    <p>Edenorte shop es una tienda online tanto como para trabajadores como para el publico, ofreciendo una gran
+                        variedad de tecnológica y desarrollo de software. Nos destacamos por nuestro compromiso con la innovación, 
+                        la seguridad y la eficiencia de los productos que emprendemos. <br/><br/>Ayudamos a nuestros clientes a 
+                        alcanzar su compra ideal en productos con éxito, haciendo todo mas rapido y optimizando los tiempos de entrega</p>
+                </div>
+                <div class="image-grid">
+                    <div class="image-item"><img src="resources/images/img1.jpg" alt="Imagen 1"/></div>
+                    <div class="image-item"><img src="resources/images/img2.jpg" alt="Imagen 2"/></div>
+                    <div class="image-item"><img src="resources/images/img3.jpg" alt="Imagen 3"/></div>
+                    <div class="image-item"><img src="resources/images/img4.jpg" alt="Imagen 4"/></div>
+                </div>
+            </div>
+        </section>
+        
+    <section id="proyectos">
+        <h2>Productos Estrella</h2>
+        <div class="proyectos-content">
+            <div class="proyecto-card">
+                <div class="card-content">
+                    <img src="resources/images/iphone12.jpg" alt="Proyecto Infraestructura 1" class="proyecto-img"/>
+                    <h3>Iphone 12</h3>
+                    <p>El iPhone 12 ofrece una pantalla Super Retina XDR de 6.1 pulgadas, chip A14 Bionic y una cámara dual de 12 MP. Innovación y rendimiento en tus manos.</p>
+                </div>
+            </div>
+            <div class="proyecto-card">
+                <div class="card-content">
+                    <img src="resources/images/iphone13.jpg" alt="Proyecto Infraestructura 2" class="proyecto-img"/>
+                    <h3>Iphone 13</h3>
+                    <p>Descubre el iPhone 13 con su potente chip A15 Bionic, cámara dual mejorada de 12 MP y una pantalla Super Retina XDR de 6.1 pulgadas. Elegancia y eficiencia.</p>
+                </div>
+            </div>
+            <div class="proyecto-card">
+                <div class="card-content">
+                    <img src="resources/images/airpodspro2.jpg" alt="Proyecto Desarrollo 1" class="proyecto-img"/>
+                    <h3>Air pods pro 2</h3>
+                    <p>Explora la potencia del MacBook Air M2 con su diseño ultradelgado, pantalla Retina de 13.6 pulgadas y chip M2 de alto rendimiento. Portabilidad y potencia sin compromisos.</p>
+                </div>
+            </div>
+            <div class="proyecto-card">
+                <div class="card-content">
+                    <img src="resources/images/macM2.jpg" alt="Proyecto Desarrollo 2" class="proyecto-img"/>
+                    <h3>Mac book air M2</h3>
+                    <p>Explora la potencia del MacBook Air M2 con su diseño ultradelgado, pantalla Retina de 13.6 pulgadas y chip M2 de alto rendimiento. Portabilidad y potencia sin compromisos.</p>
+                </div>
+            </div>
+            <div class="proyecto-card">
+                <div class="card-content">
+                    <img src="resources/images/samsungS23.jpg" alt="Proyecto Consultoría 1" class="proyecto-img"/>
+                    <h3>Samsung Galaxy S23</h3>
+                    <p>Experimenta el Samsung Galaxy S23 con su pantalla Dynamic AMOLED de 6.1 pulgadas, potente procesador y cámara de alta resolución. Innovación y rendimiento en la palma de tu mano.</p>
+                </div>
+            </div>
+            <div class="proyecto-card">
+                <div class="card-content">
+                    <img src="resources/images/rtx4090.jpg" alt="Proyecto Consultoría 2" class="proyecto-img"/>
+                    <h3>Tarjeta rtx 4090</h3>
+                    <p>Desata el poder de la RTX 4090 con su rendimiento gráfico de última generación, trazado de rayos en tiempo real y 24 GB de memoria GDDR6X. Ideal para gamers y creadores.
+
+                    </p>
+                </div>
+            </div>
+        </div>
+        <button class="nav-button left">&lt;</button>
+        <button class="nav-button right">&gt;</button>
+    </section>
+    <script src="resources/js/starter.js"></script>
+    </ui:define>
+</ui:composition>

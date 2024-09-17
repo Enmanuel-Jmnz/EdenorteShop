@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+    
+    <ui:define name="metadata">
+        <ui:param name="title" value="Charts"/> 
+    </ui:define>
+
+    <ui:define name="description">
+        View the charts
+    </ui:define>
+
+    <ui:define name="body">
+
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+        <script src="../resources/js/download.js"></script>
+        <script>
+            function chartExtender() {
+                const plugin = {
+                    id: 'customCanvasBackgroundColor',
+                    beforeDraw: (chart, args, options) => {
+                        const {ctx} = chart;
+                        ctx.save();
+                        ctx.globalCompositeOperation = 'destination-over';
+                        ctx.fillStyle = options.color || '#ffffff';
+                        ctx.fillRect(0, 0, chart.width, chart.height);
+                        ctx.restore();
+                    }
+                };
+                var options = {
+                    plugins: [ChartDataLabels],
+                    options: {
+                        responsive: true, // Hace que el gráfico sea responsivo
+                        maintainAspectRatio: false, // Permite ajustar manualmente el tamaño
+
+
+
+                        plugins: {
+                            datalabels: {
+                                color: 'HotPink'
+                            },
+                            customCanvasBackgroundColor: {
+                                color: 'white'
+                            }
+
+                        }
+                    },
+                    data: {
+                        datasets: [{
+                                datalabels: {
+                                    color: 'Indigo'
+                                }
+                            }]
+                    },
+                    plugins: [plugin]
+                };
+
+
+                $.extend(true, this.cfg.config, options);
+            }
+            
+
+
+            
+            
+
+        </script>
+
+        <h:form id="chartForm">
+            <div class="grid">
+                <div class="col-12 md:col-6">
+                    <div class="card" style="padding: 1.5rem;">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <p:outputLabel for="chart" value="Select your chart: " style="font-size: 1.8rem"/>
+                            <p:selectOneMenu id="chart" value="#{chartView.selectedChartType}" style="width:150px; margin-left: 1rem">
+                                <p:ajax listener="#{chartView.onChartTypeChange}" update="chartArea chartArea2"/>
+                                <f:selectItems value="#{chartView.chartTypes}" var="chartType" itemValue="#{chartType}" itemLabel="#{chartType}" />
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+
+                        <h:panelGroup id="chartArea">
+                            <!-- Primer grupo de gráficos -->
+                            <ui:fragment rendered="#{chartView.selectedChartType == 'Pie'}">
+                                <div class="card-header" style="padding: 0.5rem;">
+                                    <h3>Pie Chart</h3>
+                                </div>
+                                <div class="card-body" style="padding: 0.5rem; background-color: white;">
+                                    <p:chart id="pieChart" value="#{chartView.pieModel}" 
+                                             style="height: 500px; width: 400px; background-color: red" extender="chartExtender" widgetVar="chart1"/>
+                                </div>
+                            </ui:fragment>
+
+                            <ui:fragment rendered="#{chartView.selectedChartType == 'Bar'}">
+                                <div class="card-header" style="padding: 0.5rem;">
+                                    <h3>Bar Chart</h3>
+                                </div>
+                                <div class="card-body" style="padding: 0.5rem;">
+                                    <p:chart id="barChart" value="#{chartView.barModel}" 
+                                             style="height: 400px; width: 100%;" extender="chartExtender" widgetVar="chart1"/>
+                                </div>
+                            </ui:fragment>
+
+                            <ui:fragment rendered="#{chartView.selectedChartType == 'Line'}">
+                                <div class="card-header" style="padding: 0.5rem;">
+                                    <h3>Line Chart</h3>
+                                </div>
+                                <div class="card-body" style="padding: 0.5rem;">
+                                    <p:chart id="lineChart" value="#{chartView.lineModel}" 
+                                             style="height: 400px; width: 100%;" extender="chartExtender" widgetVar="chart1"/>
+                                </div>
+                            </ui:fragment>
+                            <p:commandButton type="button" value="Download Images" icon="pi pi-download" onclick="downloadCharts('chart1')" 
+                                 styleClass="mr-2 mb-2" style="background: #0096ff; color: white; margin: 1rem"/>
+                        </h:panelGroup>
+                    </div>
+                </div>
+
+                <div class="col-12 md:col-6">
+                    <div class="card" style="padding: 1.5rem;">
+                        <h:panelGroup id="chartArea2">
+
+                            <ui:fragment rendered="#{chartView.selectedChartType == 'Pie'}">
+                                <div class="card-header" style="padding: 0.5rem;">
+                                    <h3>Pie Chart 2</h3>
+                                </div>
+                                <div class="card-body" style="padding: 0.5rem;">
+                                    <p:chart id="pieChart2" value="#{chartView.pieModelSecondary}" 
+                                             style="height: 500px; width: 400px;" extender="chartExtender" widgetVar="chart2"/>
+                                </div>
+                            </ui:fragment>
+
+                            <ui:fragment rendered="#{chartView.selectedChartType == 'Bar'}">
+                                <div class="card-header" style="padding: 0.5rem;">
+                                    <h3>Bar Chart 2</h3>
+                                </div>
+                                <div class="card-body" style="padding: 0.5rem;">
+                                    <p:chart id="barChart2" value="#{chartView.barModelSecondary}" 
+                                             style="height: 400px; width: 100%;" extender="chartExtender" widgetVar="chart2"/>
+                                </div>
+                            </ui:fragment>
+
+                            <ui:fragment rendered="#{chartView.selectedChartType == 'Line'}">
+                                <div class="card-header" style="padding: 0.5rem;">
+                                    <h3>Line Chart 2</h3>
+                                </div>
+                                <div class="card-body" style="padding: 0.5rem;">
+                                    <p:chart id="lineChart2" value="#{chartView.lineModelSecondary}" 
+                                             style="height: 400px; width: 100%;" extender="chartExtender" widgetVar="chart2"/>
+                                </div>
+                            </ui:fragment>
+                        </h:panelGroup>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <p:commandButton type="button" value="Download Images" icon="pi pi-download" onclick="downloadCharts('chart2')" 
+                                 styleClass="mr-2 mb-2" style="background: #0096ff; color: white; margin: 1rem"/>
+
+                <p:commandButton type="button" value="Print" icon="pi pi-print" onclick="PF('chart1').print(); PF('chart2').print();" 
+                                 styleClass="mr-2 mb-2" style=" margin: 1rem"/>
+            </div>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

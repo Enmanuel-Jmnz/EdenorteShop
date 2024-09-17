@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+                xmlns:f="jakarta.faces.core">
+    <composite:interface>
+        <composite:attribute name="value" required="true" />
+        <composite:attribute name="fields" required="true" />
+    </composite:interface>
+
+    <composite:implementation>
+        <p:dataTable var="row" value="#{cc.attrs.value}">
+            <p:columns value="#{cc.attrs.fields}" var="field" columnIndexVar="colIndex">
+                <f:facet name="header">
+                    #{field}
+                </f:facet>
+                <h:outputText value="#{row[field]}" />
+            </p:columns>
+        </p:dataTable>
+    </composite:implementation>
+</ui:composition>

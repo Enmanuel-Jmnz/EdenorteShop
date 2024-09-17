@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config 
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
+    version="2.3">
+
+   
+    <application>
+        <resource-handler>org.omnifaces.resourcehandler.CombinedResourceHandler</resource-handler>
+    </application>
+
+    <!-- Register custom renderer -->
+      <component>
+        <component-type>com.github.adminfaces.starter.components.AutoColumnDataTable</component-type>
+        <component-class>com.github.adminfaces.starter.components.AutoColumnDataTable</component-class>
+    </component>
+    
+    <component>
+        <component-type>com.github.adminfaces.starter.components.ColoredInputText</component-type>
+        <component-class>com.github.adminfaces.starter.components.ColoredInputText</component-class>
+    </component>
+    <component>
+        <component-type>customButton</component-type>
+        <component-class>com.github.adminfaces.starter.components.CustomButton</component-class>
+    </component>
+     <component>
+        <component-type>"com.github.adminfaces.starter.DataTableComponent"</component-type>
+        <component-class>com.github.adminfaces.starter.components.DataTableComponent</component-class>
+    </component>
+
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>com.github.adminfaces.starter.renderer.AutoColumnDataTableRenderer</renderer-type>
+            <renderer-class>com.github.adminfaces.starter.renderer.AutoColumnDataTableRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+
+</faces-config>

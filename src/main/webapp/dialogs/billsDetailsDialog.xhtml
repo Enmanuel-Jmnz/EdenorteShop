@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <p:dialog header="Bill Details" widgetVar="billsDetailsDialog" modal="true" width="800" height="500">
+        <h:form id="billsForm">
+            <div class="card">
+                <p:dataTable id="dt-details"
+                             var="detail"
+                             value="#{billDetailBean.billdetails}" 
+                             lazy="false"
+                             styleClass="table"
+                             emptyMessage="No bill details available"
+                             style="text-align: center;">
+                    <p:column headerText="Bill Detail ID">
+                        <h:outputText value="#{detail.billdetailID}" />
+                    </p:column>
+                    <p:column headerText="Sale ID">
+                        <h:outputText value="#{detail.sale.saleID}" />
+                    </p:column>
+                    <p:column headerText="Product ID">
+                        <h:outputText value="#{detail.product.productID}" />
+                    </p:column>
+                    <p:column headerText="Quantity">
+                        <h:outputText value="#{detail.qty}" />
+                    </p:column>
+                    <p:column headerText="Total Price">
+                        <h:outputText value="#{detail.totalPrice}" />
+                    </p:column>
+                </p:dataTable>    
+            </div>
+        </h:form>
+    </p:dialog>
+</ui:composition>

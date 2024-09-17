@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+                    
+    <p:dialog header="Edit User" widgetVar="editUserDialog" modal="true" id="editUserDialog" resizable="false" closable="true"
+                  styleClass="box-primary card" style="border-radius: 8px !important; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important; padding: 15px !important;">
+            <h:form id="formEditUser" prependId="false">
+                <div class="ui-g ui-fluid" style="color: black !important; width: 40em">
+                    <!-- Columna 1 -->
+                    <div class="ui-sm-12 ui-g-6 ui-g-nopad">
+                        <div class="ui-sm-12 ui-g-11" style="color: black !important;">
+                            <p:outputLabel for="dni" value="DNI:" styleClass="ui-outputlabel" style="color: black !important;"/>
+                        </div>
+                        <div class="ui-sm-12 ui-g-11">
+                            <p:inputText id="dni" value="#{userBean.selectedUser.dni}" required="true" label="DNI" 
+                                         styleClass="form-control" style="color: black !important;" />
+                        </div>
+                    </div>
+                    <div class="ui-sm-12 ui-g-6 ui-g-nopad">
+                        <div class="ui-sm-12 ui-g-11">
+                            <p:outputLabel for="name" value="User Name:" styleClass="ui-outputlabel" style="color: black !important;"/>
+                        </div>
+                        <div class="ui-sm-12 ui-g-11">
+                            <p:inputText id="name" value="#{userBean.selectedUser.name}" required="true" label="User Name"
+                                         styleClass="form-control" style="color: black !important;"/>
+                        </div>
+                    </div>
+                    <div class="ui-sm-12 ui-g-6 ui-g-nopad">
+                        <div class="ui-sm-12 ui-g-11">
+                            <p:outputLabel for="email" value="Email:" styleClass="ui-outputlabel" style="color: black !important;"/>
+                        </div>
+                        <div class="ui-sm-12 ui-g-11">
+                            <p:inputText id="email" value="#{userBean.selectedUser.email}" required="true" label="Email"
+                                         styleClass="form-control" style="color: black !important;"/>
+                        </div>
+                    </div>
+                    <div class="ui-sm-12 ui-g-6 ui-g-nopad">
+                        <div class="ui-sm-12 ui-g-11">
+                            <p:outputLabel for="category" value="Category:" styleClass="ui-outputlabel" style="color: black !important;"/>
+                        </div>
+                        <div class="ui-sm-12 ui-g-11">
+                            <p:inputText id="category" value="#{userBean.selectedUser.category}" required="true" label="Category"
+                                         styleClass="form-control" style="color: black !important;"/>
+                        </div>
+                    </div>
+                    <div class="ui-sm-12 ui-g-6 ui-g-nopad">
+                        <div class="ui-sm-12 ui-g-11">
+                            <p:outputLabel for="password" value="Password:" styleClass="ui-outputlabel" style="color: black !important;"/>
+                        </div>
+                        <div class="ui-sm-12 ui-g-11">
+                            <p:password id="password" value="#{userBean.selectedUser.password}" required="true" toggleMask="true" redisplay="true"
+                                        styleClass="form-control" style="color: black !important;"/>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: right !important; padding: 10px;">
+                    <p:commandButton value="Save" 
+                                     action="#{userBean.updateUser}" 
+                                     process="@form" 
+                                     update=":form:dt-users :form:messages" 
+                                     styleClass="btn btn-primary" 
+                                     oncomplete="PF('editUserDialog').hide();" 
+                                     style="margin-right: 1rem"/>
+
+                    <p:commandButton value="Cancel" 
+                                     onclick="PF('editUserDialog').hide()" 
+                                     type="button"
+                                     styleClass="btn btn-danger" />
+                </div>
+                <f:facet name="footer">
+                </f:facet>
+            </h:form>
+        </p:dialog>
+
+</ui:composition>
+   

@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+           <p:dialog header="Delete User" 
+                  widgetVar="deleteUserDialog" 
+                  modal="true" id="deleteUserDialog" 
+                  resizable="false" 
+                  closable="true">
+            <h:outputText value="Are you sure you want to delete this user?" />
+            <f:facet name="footer">
+                <p:commandButton value="Yes" 
+                                 icon="pi pi-check" 
+                                 action="#{userBean.deleteUser}"
+                                 process="@this" 
+                                 update=":form:dt-users :form:messages" 
+                                 style="background: #0096ff; color: white"
+                                 oncomplete="PF('deleteUserDialog').hide()" />
+                <p:commandButton value="No" 
+                                 type="button" 
+                                 styleClass="ui-button-secondary" 
+                                 icon="pi pi-times"
+                                 onclick="PF('deleteUserDialog').hide()" />
+            </f:facet>
+        </p:dialog>         
+</ui:composition>
+                    
+    

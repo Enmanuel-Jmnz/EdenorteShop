@@ -1,0 +1,240 @@
+.sidebar-form {
+    border-radius: 3px;
+    border: 1px solid #374850;
+    margin: 10px 10px;
+}
+.sidebar-form, .sidebar-menu>li.header {
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+#userImage {
+    float: left;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: -2px;
+}
+
+ul.dropdown-menu > li.user-header {
+    height: auto!important;
+}
+
+a.dropdown-toggle {
+    background-color: #3c8dbc!important;
+}
+
+a#logout {
+    color: #3c8dbc!important;
+    background: transparent;
+}
+
+@media (max-width: 768px) {
+    body .control-sidebar {
+        padding-top:100px;
+    }
+}
+
+#proyectos {
+    position: relative;
+    padding: 30px;
+
+    text-align: center;
+    overflow: hidden;
+}
+
+#proyectos h2 {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color:#0096ff;
+}
+
+.proyectos-content {
+    padding: 10rem;
+    display: flex;
+    justify-content: center;
+    margin-bottom: -4rem;
+    align-items: center;
+    position: relativSe;
+    width: 100%;
+    height: 80vh;
+}
+
+.proyecto-card {
+
+    width: 25%;
+    height: 65%;
+    position: absolute;
+    transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out, z-index 0.6s ease-in-out;
+    opacity: 0.6;
+    transform: scale(0.95);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    margin-bottom: 20px;
+}
+
+.proyecto-card.active {
+    opacity: 1;
+    transform: translateX(0) scale(1.1);
+    z-index: 2;
+
+}
+
+.proyecto-card.prev {
+    transform: translateX(-75%) scale(0.95);
+    opacity: 0.8;
+    z-index: 1;
+}
+
+.proyecto-card.next {
+    transform: translateX(75%) scale(0.95);
+    opacity: 0.8;
+    z-index: 1;
+}
+
+.card-content {
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    height: 95%;
+    overflow-y: auto;
+    text-align: left;
+}
+
+.proyecto-img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    border-radius: 5px;
+
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.nav-button{
+    background-color: #0096ff;
+    color: white;
+    font-weight: bold;
+}
+.nav-button:hover{
+    background-color:rgb(12, 34, 99);
+    color: rgb(248, 248, 248);
+    font-weight: bold;
+}
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 768px) {
+    .proyecto-card {
+        width: 80%;
+        height: 74%;
+        transform: translateX(0) scale(0.95);
+        opacity: 0; /* Hacer invisibles las tarjetas prev y next */
+    }
+
+    .proyecto-card.active {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+        z-index: 2;
+    }
+
+    .proyecto-card.prev, .proyecto-card.next {
+        display: none; /* Ocultar tarjetas prev y next */
+    }
+}
+#sobre-nosotros {
+    padding: 40px 20px;
+    color: black;
+    margin-top: -2rem;
+    text-align: center;
+}
+
+#sobre-nosotros h2 {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #0096ff;
+}
+
+.container-about {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.text-content-about {
+    flex: 1;
+    text-align: left;
+    font-size: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    width: 100%;
+    max-width: 200px;
+}
+
+.image-item {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%; /* Aspect ratio 1:1 */
+    overflow: hidden;
+    border-radius: 15px;
+    transition: transform 0.5s ease;
+}
+
+.image-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 94%;
+    height: 94%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.image-item:hover {
+    transform: scale(1.05);
+}
+
+@media (min-width: 768px) {
+    .container-about {
+        flex-direction: row;
+    }
+
+    .text-content-about {
+        max-width: 50%;
+    }
+
+    .image-grid {
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 767px) {
+    .text-content-about {
+        font-size: 2rem;
+    }
+
+    .image-grid {
+        grid-template-columns: 1fr 1fr;
+        max-width: 100%;
+    }
+}

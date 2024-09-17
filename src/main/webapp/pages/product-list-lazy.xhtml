@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Product listing"/>
+        <style>
+            .products-table-header {
+                text-align: left;
+                font-weight: bold;
+            }
+
+            .filter-container {
+                margin-left: 1rem;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="description">
+        Find products by name, DNI and category
+    </ui:define>
+
+    <ui:define name="body">
+        <div class="card">
+
+            <h:form id="form">
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="New Product"
+                                         update=":dialogs:newProductDialog"
+                                         oncomplete="PF('newProductDialog').show()"
+                                         style="margin: 1rem; color: white; background-color: green; padding: 0.5rem 1rem; font-size: 1.8rem"
+                                         styleClass="ui-button-success" />
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                
+                <p:dataTable var="product" value="#{productLazyView.lazyModel}" 
+                             paginator="true" rows="2"
+                             paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                             rowsPerPageTemplate="2,4,6" 
+                             widgetVar="cellCars2"
+                             lazy="true"
+                             id="dt-products">
+                    <f:facet name="header">
+                        <div class="products-table-header" style="text-align: left; font-weight: bold;">
+                            PRODUCTS
+                            <span class="filter-container ui-input-icon-left"></span>
+                        </div>
+                    </f:facet>
+
+                    <p:column headerText="Code" sortBy="#{product.productID}" filterBy="#{product.productID}">
+                        <h:outputText value="#{product.productID}"/>
+                    </p:column>
+
+                    <p:column headerText="Name" sortBy="#{product.name}" filterBy="#{product.name}">
+                        <span class="flag flag-#{product.name}" style="width: 30px; height: 20px"/>
+                        <h:outputText style="vertical-align: middle; margin-left: .5rem"
+                                      value="#{product.name}"/>
+                    </p:column>
+
+                    <p:column headerText="Category" sortBy="#{product.category}" filterBy="#{product.category}">
+                        <h:outputText style="vertical-align: middle; margin-left: .5rem"
+                                      value="#{product.category}"/>
+                    </p:column>
+
+                    <p:column headerText="Stock" sortBy="#{product.stock}" filterBy="#{product.stock}">
+                        <h:outputText value="#{product.stock}"/>
+                    </p:column>
+
+                    <p:column headerText="Price" sortBy="#{product.price}" filterBy="#{product.price}">
+                        <h:outputText value="#{product.price}">
+                            <f:convertNumber currencySymbol="$" type="currency" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column exportable="false" 
+                              ariaHeaderText="Actions"
+                              style="text-align: center;">
+                        
+                        <p:commandButton icon="pi pi-pencil"
+                                         update=":dialogs:editProductDialog"
+                                         oncomplete="PF('editProductDialog').show()"
+                                         styleClass="edit-button rounded-button ui-button-success"
+                                         style="margin-right: 0.5rem; background: limegreen; color: white; padding: 0.3rem 0.8rem; border-radius: 10rem;"
+                                         process="@this">
+                            <f:setPropertyActionListener value="#{product}" target="#{productBean.selectedProduct}" />
+                            <p:resetInput target=":dialogs:editProductDialog" />
+                        </p:commandButton>
+
+                        <p:commandButton class="ui-button-warning rounded-button" 
+                                         icon="pi pi-trash"
+                                         process="@this"
+                                         style="background: red; color: white; padding: 0.3rem 0.8rem; border-radius: 10rem;"
+                                         oncomplete="PF('deleteProductDialog').show()">
+                            <f:setPropertyActionListener value="#{product}" target="#{productBean.selectedProduct}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+            <h:form id="dialogs">
+
+                <ui:include src="../dialogs/newProductDialog.xhtml"/>
+                
+                <ui:include src="../dialogs/editProductDialog.xhtml"/>
+               
+                <ui:include src="../dialogs/deleteProductDialog.xhtml"/>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                xmlns:cc="http://xmlns.jcp.org/jsf/composite/mycomponents"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Components"/> 
+    </ui:define>
+
+    <ui:define name="description">
+        data table component
+    </ui:define>
+
+    <ui:define name="body">
+        <div class="card">
+            <h:form id="form">
+                
+                <cc:DinamicTable  
+                    id="dt-users"
+                    value="#{userLazyView.lazyModel}"
+                    headers="#{userLazyView.headers}"
+                    paginator="true"
+                    paginatorPosition="top"
+                   
+                    />
+
+
+            </h:form>
+            
+        </div>
+    </ui:define>
+</ui:composition>

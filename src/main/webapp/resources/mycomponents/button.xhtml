@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+    
+<cc:interface>
+    <!-- Atributo para el texto del botón -->
+    <cc:attribute name="value" required="true" />
+    <!-- Atributo para el color del botón -->
+    <cc:attribute name="color" required="true" />
+    <!-- Atributo para el tamaño de la fuente -->
+    <cc:attribute name="fontSize" default="16px" />
+    <!-- Atributo para el peso de la fuente -->
+    <cc:attribute name="fontWeight" default="normal" />
+    <!-- Atributo para los márgenes -->
+    <cc:attribute name="margin" default="5px" />
+    <!-- Atributo para el padding -->
+    <cc:attribute name="padding" default="10px 20px" />
+    <!-- Atributo para el id del botón (opcional) -->
+    <cc:attribute name="id" />
+    <!-- Atributos opcionales -->
+    <cc:attribute name="update" />
+    <cc:attribute name="oncomplete" />
+</cc:interface>
+
+<cc:implementation>
+    <h:form>
+        <!-- Botón con estilos personalizados -->
+        <p:commandButton value="#{cc.attrs.value}" 
+                         id="#{cc.attrs.id}"
+                         styleClass="custom-button"
+                         update="#{cc.attrs.update}"
+                         oncomplete="#{cc.attrs.oncomplete}"
+                         ajax="true"
+                         style="font-size: #{cc.attrs.fontSize} !important; 
+                                font-weight: #{cc.attrs.fontWeight} !important; 
+                                margin: #{cc.attrs.margin} !important; 
+                                padding: #{cc.attrs.padding} !important;" />
+    </h:form>
+    
+    <!-- Estilos personalizados para el botón -->
+    <style>
+        .custom-button {
+            background-color: #{cc.attrs.color} !important;
+            color: white !important;
+            border: 1px solid #{cc.attrs.color} !important;
+            cursor: pointer;
+        }
+
+        .custom-button:hover {
+            background-color: white !important;
+            color: #{cc.attrs.color} !important;
+            border: 1px solid #{cc.attrs.color} !important;
+        }
+    </style>
+</cc:implementation>
+</html>
